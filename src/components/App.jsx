@@ -4,7 +4,7 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
-import Loader from './Loader/Loader';
+import CustomLoader from './Loader/Loader';
 
 const API_KEY = '34729435-1f68c86a9e1e838777c5cf5d0';
 
@@ -61,7 +61,7 @@ const App = () => {
     <div className="App">
       <Searchbar onSubmit={handleSubmit} />
       <ImageGallery images={images} onImageClick={handleImageClick} />
-      {isLoading && <Loader />}
+      {isLoading && <CustomLoader />}
       {images.length > 0 && !isLoading && (
         <Button onClick={handleLoadMore} />
       )}
