@@ -8,9 +8,7 @@ import CustomLoader from './Loader/Loader';
 import fetchImages from './Services/Api';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+state = {
       searchQuery: '',
       images: [],
       page: 1,
@@ -18,7 +16,15 @@ class App extends Component {
       selectedImage: null,
       hasMoreImages: true,
     };
-  }
+  
+    componentDidUpdate(prevProps, prevState) {
+      if (
+        prevState.searchQuery !== this.state.searchQuery ||
+        prevState.page !== this.state.page
+      ) {
+        this.fetchImages();
+      }
+    }
 
   handleSubmit = query => {
     this.setState({
@@ -34,9 +40,6 @@ class App extends Component {
       prevState => ({
         page: prevState.page + 1,
       }),
-      () => {
-        this.fetchImages();
-      }
     );
   };
 
@@ -52,19 +55,6 @@ class App extends Component {
     });
   };
 
-  componentDidMount() {
-    this.fetchImages();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.searchQuery !== this.state.searchQuery ||
-      prevState.page !== this.state.page
-    ) {
-      this.fetchImages();
-    }
-  }
-
   fetchImages = async () => {
     const { searchQuery, page, images } = this.state;
 
@@ -76,10 +66,9 @@ class App extends Component {
 
     try {
       const newImages = await fetchImages(searchQuery, page);
-      const allImages = [...images, ...newImages];
 
       this.setState(prevState => ({
-        images: allImages,
+        images: [...images, ...newImages],
         hasMoreImages: newImages.length === 12,
       }));
     } catch (error) {
