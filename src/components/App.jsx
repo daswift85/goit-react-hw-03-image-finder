@@ -79,14 +79,14 @@ class App extends Component {
   };
 
   render() {
-    const { images, isLoading, selectedImage, hasMoreImages } = this.state;
+    const { images, isLoading, selectedImage, showLoadMoreButton } = this.state;
 
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <CustomLoader />}
-        {!isLoading && images.length > 0 && hasMoreImages && (
+        {!isLoading && images.length > 0 && showLoadMoreButton && (
           <Button onClick={this.handleLoadMore} />
         )}
         {selectedImage && (
