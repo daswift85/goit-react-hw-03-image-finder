@@ -14,7 +14,7 @@ state = {
       page: 1,
       isLoading: false,
       selectedImage: null,
-      hasMoreImages: true,
+      showLoadMoreButton: true,
     };
   
     componentDidUpdate(prevProps, prevState) {
@@ -31,7 +31,7 @@ state = {
       searchQuery: query,
       page: 1,
       images: [],
-      hasMoreImages: true,
+      showLoadMoreButton: true,
     });
   };
 
@@ -69,7 +69,7 @@ state = {
 
       this.setState(prevState => ({
         images: [...images, ...newImages],
-        hasMoreImages: newImages.length === 12,
+        showLoadMoreButton: newImages.length === 12,
       }));
     } catch (error) {
       console.error(error);
