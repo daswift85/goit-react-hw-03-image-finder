@@ -8,23 +8,23 @@ import CustomLoader from './Loader/Loader';
 import fetchImages from './Services/Api';
 
 class App extends Component {
-state = {
-      searchQuery: '',
-      images: [],
-      page: 1,
-      isLoading: false,
-      selectedImage: null,
-      showLoadMoreButton: true,
-    };
-  
-    componentDidUpdate(prevProps, prevState) {
-      if (
-        prevState.searchQuery !== this.state.searchQuery ||
-        prevState.page !== this.state.page
-      ) {
-        this.fetchImages();
-      }
+  state = {
+    searchQuery: '',
+    images: [],
+    page: 1,
+    isLoading: false,
+    selectedImage: null,
+    showLoadMoreButton: true,
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.searchQuery !== this.state.searchQuery ||
+      prevState.page !== this.state.page
+    ) {
+      this.fetchImages();
     }
+  }
 
   handleSubmit = query => {
     this.setState({
@@ -36,11 +36,9 @@ state = {
   };
 
   handleLoadMore = () => {
-    this.setState(
-      prevState => ({
-        page: prevState.page + 1,
-      }),
-    );
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   handleImageClick = image => {
@@ -86,10 +84,7 @@ state = {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery
-          images={images}
-          onImageClick={this.handleImageClick}
-        />
+        <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <CustomLoader />}
         {!isLoading && images.length > 0 && hasMoreImages && (
           <Button onClick={this.handleLoadMore} />
